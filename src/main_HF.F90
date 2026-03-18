@@ -1,7 +1,7 @@
 program HartreeFock
 
-   ! Demonstration program that can be used as a starting point
-   ! Lucas Visscher, March 2022
+   ! Program modified from main_demo as starting point
+   ! Yante Gerbers, March 2026
 
    use molecular_structure
    use ao_basis
@@ -20,9 +20,10 @@ program HartreeFock
      integer  :: kappa, lambda
      real(8)  :: E_HF
      real(8), allocatable :: F(:,:),V(:,:),T(:,:),S(:,:), C(:,:), eps(:), D(:,:)
+     real(8), allocatable :: H_core(:,:)
 
      ! The following large array can be eliminated when Fock matrix contruction is implemented
-     real(8), allocatable :: ao_integrals (:,:,:,:)
+     real(8), allocatable :: ao_integrals (:,:,:,:)  
    
      ! Definition of the molecule
      call define_molecule(molecule)
@@ -48,7 +49,9 @@ program HartreeFock
 
      ! Compute the core Hamiltonian matrix (the potential is positive, we scale with -e = -1 to get to the potential energy matrix)
      allocate (F(n_AO,n_AO))
-     F = T - V
+     allocate(H_core(n_AO,n_AO))
+     H_core = T - V
+     F = H_core ! for first SCF iteration 
 
      ! Diagonalize the Fock matrix
      allocate (C(n_AO,n_AO))
@@ -80,31 +83,7 @@ program HartreeFock
 
    end
 
-   subroutine define_molecule(molecule)
-     ! This routine should be improved such that an arbitrary molecule can be given as input
-     ! the coordinates below are for a be-he dimer oriented along the x-axis with a bond length of 2 au
-     use molecular_structure
-     type(molecular_structure_t), intent(inout) :: molecule
-     real(8) :: charge(2),coord(3,2)
-     charge(1)   = 4.D0
-     charge(2)   = 2.D0
-     coord       = 0.D0
-     coord(1,2)  = 2.D0
-     call add_atoms_to_molecule(molecule,charge,coord)
-   end subroutine
 
-   subroutine define_basis(ao_basis)
-    ! This routine can be extended to use better basis sets 
-    ! The coordinates of the shell centers are the nuclear coordinates
-    ! Think of a refactoring of define_molecule and define_basis to ensure consistency 
-     use ao_basis
-     type(basis_set_info_t), intent(inout) :: ao_basis
-     type(basis_func_info_t) :: gto
-     ! Be:  2 uncontracted s-funs:    l      coord          exp      
-     call add_shell_to_basis(ao_basis,0,(/0.D0,0.D0,0.D0/),4.D0)
-     call add_shell_to_basis(ao_basis,0,(/0.D0,0.D0,0.D0/),1.D0)
-     ! He:  1 uncontracted s-fun:     l      coord          exp      
-     call add_shell_to_basis(ao_basis,0,(/2.D0,0.D0,0.D0/),1.D0)
-   end subroutine
 
    
+end program HartreeFock
