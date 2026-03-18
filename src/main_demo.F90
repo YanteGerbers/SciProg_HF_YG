@@ -1,4 +1,4 @@
-program HartreeFock
+program HartreeFock_demo
 
    ! Demonstration program that can be used as a starting point
    ! Lucas Visscher, March 2022
