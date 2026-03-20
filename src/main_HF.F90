@@ -7,8 +7,7 @@ program HartreeFock
    use ao_basis
    use compute_integrals
    use diagonalization
-
-     implicit none
+   implicit none
 
      ! Variable containing the molecular structure
      type(molecular_structure_t) :: molecule
@@ -16,25 +15,26 @@ program HartreeFock
      type(basis_set_info_t) :: ao_basis
 
      ! Variable naming as in the description of the exercise
-     integer  :: n_AO, n_occ
+     integer  :: n_AO, n_occ, n_e
      integer  :: kappa, lambda
      real(8)  :: E_HF
      real(8), allocatable :: F(:,:),V(:,:),T(:,:),S(:,:), C(:,:), eps(:), D(:,:)
      real(8), allocatable :: H_core(:,:)
 
-     ! The following large array can be eliminated when Fock matrix contruction is implemented
+     !!!!! The following large array can be eliminated when Fock matrix contruction is implemented
      real(8), allocatable :: ao_integrals (:,:,:,:)  
    
-     ! Definition of the molecule
+     ! Define molecule
      call define_molecule(molecule)
-
-     ! Definition of the GTOs
-     call define_basis(ao_basis)
+     ! Define GTOs/basis functions
+     call define_basis(ao_basis, molecule)
+     ! Define number of atomic orbitals
      n_AO = ao_basis%nao
-   
-     ! Definition of the number of occupied orbitals
-     n_occ = 3 ! hardwired for this demonstration program, should be set via input
-
+     ! Define number of electrons
+     n_e = int(sum(molecule%charge))
+     ! Defie number of occupied orbitals
+     n_occ = n_e / 2
+     
      ! Compute the overlap matrix
      allocate (S(n_AO,n_AO))
      call   compute_1e_integrals ("OVL",ao_basis,ao_basis,S)
