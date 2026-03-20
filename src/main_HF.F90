@@ -67,7 +67,7 @@ program HartreeFock
        end do
      end do
 
-     ! Compute the Hartree-Fock energy (this should be modified, see the notes)
+     !!!!! Compute the Hartree-Fock energy (this should be modified, see the notes)
      E_HF = 2.D0 * sum(F*D)
      allocate (ao_integrals(n_AO,n_AO,n_AO,n_AO))
      ! Compute all 2-electron integrals
