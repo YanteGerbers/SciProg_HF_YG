@@ -19,6 +19,7 @@ contains
      call add_atoms_to_molecule(molecule,charge,coord)
    end subroutine
 
+
    subroutine define_basis(ao_basis, molecule)
     ! This routine was extended to use more extensive basis sets, according to assigment,
     ! and modified to be consistent with define_molecule.
@@ -50,32 +51,5 @@ contains
        end if
      end do
    end subroutine
-
-
-
-
-
-
-
-
-
-
-   subroutine initialize_system(molecule, ao_basis, Ne, Nocc, NAO)
-    ! This routine .................. 
-    type(molecular_structure_t), intent(out) :: molecule
-    type(basis_set_info_t), intent(out) :: ao_basis
-    integer, intent(out) :: Ne, Nocc, NAO
-    ! Define molecule (hardcoded)
-    call define_molecule(molecule)
-    ! Define basis
-    call define_basis(ao_basis)
-    ! Define number of basis functions
-    NAO = ao_basis%nao
-    ! Define number of electrons
-    Ne = int(sum(molecule%charge))
-    ! Define number of occupied orbitals
-    Nocc = Ne / 2
-  end subroutine
-
 
 end module system_setup
