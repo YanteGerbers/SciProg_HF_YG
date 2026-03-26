@@ -1,11 +1,10 @@
        module ao_basis
 
         implicit none
+        
         private
-
-        integer, parameter, private:: REALD=8 ! default real for this module
-
         public add_shell_to_basis, clear_basis 
+        integer, parameter, private:: REALD=8 ! default real for this module
 
 !       Basis function info:
         type, public:: basis_func_info_t

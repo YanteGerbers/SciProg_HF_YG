@@ -3,7 +3,6 @@
 
         implicit none
         private
-
         public add_atoms_to_molecule
         integer, parameter, private:: REALD=8 ! default real for this module
 

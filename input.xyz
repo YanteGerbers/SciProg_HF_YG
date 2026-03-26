@@ -1,0 +1,8 @@
+# Adjust lines 3, 5 and 7 onwards for any molecule. Do NOT add lines before line 7!
+# molecule
+H2
+# number of atoms
+2
+# type of atom (element symbol); nuclear charge (Z); coordinates of the atom (in angstrom)
+H 1 0.0 0.0 0.0
+H 1 0.74 0.0 0.0
