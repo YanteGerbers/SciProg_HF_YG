@@ -7,16 +7,29 @@ implicit none
 contains
 
     subroutine define_molecule(molecule)
-     ! This routine should be improved such that an arbitrary molecule can be given as input
-     ! the coordinates below are for a be-he dimer oriented along the x-axis with a bond length of 2 au
-     !!!!! The coordinates of the shell centers are the nuclear coordinates
-     type(molecular_structure_t), intent(inout) :: molecule
-     real(8) :: charge(2),coord(3,2)
-     charge(1)   = 4.D0
-     charge(2)   = 2.D0
-     coord       = 0.D0
-     coord(1,2)  = 2.D0
-     call add_atoms_to_molecule(molecule,charge,coord)
+    ! This subroutine read data from the input.xyz file
+      type(molecular_structure_t), intent(inout) :: molecule
+      integer :: i, natoms, Z 
+      character(len=2) :: element
+      real(8), parameter :: ang_to_bohr = 1.8897D0
+      real(8), allocatable :: charge(:), coord(:,:)
+
+      open(unit=10, file='input.xyz', status='old')
+      read(10,*) ! skip comment lines
+      read(10,*) 
+      read(10,*) 
+      read(10,*) 
+      read(10,*) natoms
+      read(10,*) 
+      allocate(charge(natoms))
+      allocate(coord(3,natoms))
+      do i=1,natoms
+        read(10,*) element, Z, coord(1,i), coord(2,i), coord(3,i)
+        coord(:,i) = coord(:,i) * ang_to_bohr
+        charge(i) = Z 
+      end do
+      close(10)
+      call add_atoms_to_molecule(molecule, charge, coord)
    end subroutine
 
 

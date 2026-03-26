@@ -1,10 +1,9 @@
 module Diagonalization
 
 implicit none
-
 private
-
 public :: diagonalize, solve_genev
+
 
 contains
 

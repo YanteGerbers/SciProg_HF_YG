@@ -1,10 +1,10 @@
 module compute_integrals
+
  implicit none
-
  private
-
  public compute_1e_integrals, compute_2e_integrals, generate_2int, n_ang
 
+ 
  contains
 
     subroutine compute_1e_integrals (property,ao_basis_bra,ao_basis_ket,ao_integrals,molecule)
