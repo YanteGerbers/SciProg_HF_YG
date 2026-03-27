@@ -102,6 +102,12 @@ contains
 
   subroutine build_density(C, n_occ, Density)
   ! Builds density matrix from occupied orbitals
+  ! Input:
+  ! C             - orbitals coefficients (eigenvectors)
+  ! n_occ         - number of occupied orbitals
+  !
+  ! Output:
+  ! Density       - Density matrix 
 
     real(8), intent(in) :: C(:,:)
     integer, intent(in) :: n_occ
@@ -124,6 +130,13 @@ contains
 
   subroutine build_fock(H_core, Density, ao_integrals, Fock)
   ! Builds Fock matrix: core hamiltonial + electron-electron interactions
+  ! Input:
+  ! H_core        - core Hamiltonian
+  ! Density       - Density matrix 
+  ! ao_integrals  - two-electron integrals
+  !
+  ! Output:
+  ! Fock          - Fock matrix 
 
     real(8), intent(in) :: H_core(:,:), Density(:,:), ao_integrals(:,:,:,:)
     real(8), intent(out) :: Fock(:,:)
@@ -150,7 +163,14 @@ contains
   
   Function check_conv_eps(eps, eps_old, threshold_eps) result(converged)
   ! Checks SCF convergence based on change in orbital energies (Euclidean norm)
-  
+  ! Builds Fock matrix: core hamiltonial + electron-electron interactions
+  ! Input:
+  ! eps           - orbital energies (eigenvalues)
+  ! eps_old       - orbital energies from previous iteration
+  ! threshold_eps - difference in eps between iterations upon the SCF loop stops  
+  ! Result:
+  ! converged     - Logical, true or false 
+
     real(8), intent(in) :: eps(:), eps_old(:)
     real(8), intent(in) :: threshold_eps
 
@@ -169,9 +189,13 @@ contains
 
 
   subroutine nuclear_repulsion(molecule, V_nn)
-  ! Computes nuclear-nuclear repulsion energy from atomic positions and charges 
-
     use molecular_structure
+  ! Computes nuclear-nuclear repulsion energy from atomic positions and charges 
+  ! Input:
+  ! molecule      - molecular structure
+  !
+  ! output        
+  ! V_NN          - nuclear repulsion term
 
     type(molecular_structure_t), intent(in) :: molecule
     real(8), intent(out) :: V_nn

@@ -17,6 +17,8 @@ contains
   subroutine define_molecule(molecule)
   ! Reads molecular structure from the input.xyz file
   ! Converts coordinates from Angstrom to Bohr
+  ! Input/output:
+  ! molecule      - molecular structure
 
     type(molecular_structure_t), intent(inout) :: molecule
     
@@ -54,6 +56,11 @@ contains
   subroutine define_basis(ao_basis, molecule)
   ! Defines set of basis functions for each atom
   ! Coordinates of the shell centers are the nuclear coordinates
+  ! Input:
+  ! ao_basis      - atomic orbital basis functions
+  ! molecule      - molecular structure
+  ! output:
+  ! ao_basis      - atomic orbital basis functions
 
     type(basis_set_info_t), intent(inout) :: ao_basis
     type(molecular_structure_t), intent(in) :: molecule
@@ -92,6 +99,13 @@ contains
 
   subroutine system_size(ao_basis, molecule, n_AO, n_e, n_occ)
   ! Defines number of electrons, atomic orbitals and occupied orbitals
+  ! Input:
+  ! ao_basis      - atomic orbital basis functions
+  ! ao_basis      - atomic orbital basis functions
+  ! output:
+  ! n_AO          - number of atomic orbitals  
+  ! n_e           - number of electronsS  
+  ! n_occ         - number of occupied orbitals  
 
     type(basis_set_info_t), intent(in)      :: ao_basis
     type(molecular_structure_t), intent(in) :: molecule
