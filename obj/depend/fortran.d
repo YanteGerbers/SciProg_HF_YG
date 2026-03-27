@@ -138,10 +138,12 @@ $(DEST)/compute_integrals.o: $(DEST)/molecular_structure.mod
 
 
 
-
 $(DEST)/main.o: $(DEST)/ao_basis.mod $(DEST)/compute_integrals.mod
-$(DEST)/main.o: $(DEST)/diagonalization.mod $(DEST)/molecular_structure.mod
-$(DEST)/main.o: $(DEST)/scf_convergence.mod $(DEST)/system_setup.mod
+$(DEST)/main.o: $(DEST)/molecular_structure.mod $(DEST)/scf_loop.mod
+$(DEST)/main.o: $(DEST)/system_setup.mod
+
+$(DEST)/scf_loop.o: $(DEST)/compute_integrals.mod $(DEST)/diagonalization.mod
+$(DEST)/scf_loop.o: $(DEST)/molecular_structure.mod
 
 $(DEST)/system_setup.o: $(DEST)/ao_basis.mod $(DEST)/molecular_structure.mod
 
@@ -159,6 +161,6 @@ $(DEST)/module_interest_eri.mod: $(DEST)/module_interest_eri.o
 $(DEST)/module_interest_hrr.mod: $(DEST)/module_interest_hrr.o
 $(DEST)/module_interest_osr.mod: $(DEST)/module_interest_osr.o
 $(DEST)/molecular_structure.mod: $(DEST)/molecular_structure.o
-$(DEST)/scf_convergence.mod: $(DEST)/scf_convergence.o
+$(DEST)/scf_loop.mod: $(DEST)/scf_loop.o
 $(DEST)/system_setup.mod: $(DEST)/system_setup.o
 $(DEST)/xkind.mod: $(DEST)/xkind.o
