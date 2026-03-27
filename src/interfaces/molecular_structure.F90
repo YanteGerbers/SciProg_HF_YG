@@ -1,10 +1,10 @@
 !This module defines a molecular structure data type
        module molecular_structure
 
-        implicit none
-        private
-        public add_atoms_to_molecule
-        integer, parameter, private:: REALD=8 ! default real for this module
+       implicit none
+       private
+       public add_atoms_to_molecule
+       integer, parameter, private:: REALD=8 ! default real for this module
 
 !       Molecule:
         type, public:: molecular_structure_t
